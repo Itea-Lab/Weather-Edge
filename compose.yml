@@ -20,21 +20,20 @@ services:
       - weather-network
 
   mosquitto:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:latest
     container_name: mqtt-broker
     ports:
       - "1883:1883" #default mqtt port
       - "9001:9001" #default websocket port
-    environment:
-      MQTT_USER: ${MQTT_USER}
-      MQTT_PASSWORD: ${MQTT_PASSWORD}
     volumes:
       - mosquitto-config:/mosquitto/config
       - mosquitto-data:/mosquitto/data
       - mosquitto-log:/mosquitto/log
-    restart: unless-stopped
     networks:
       - weather-network
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
 
   # backend:
   #   build: ./backend
@@ -49,6 +48,7 @@ services:
 
 networks:
   weather-network:
+    driver: bridge
 
 volumes:
   influxdb2-data:
