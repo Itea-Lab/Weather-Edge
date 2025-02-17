@@ -1,0 +1,58 @@
+name: itea-weather-station
+
+services:
+  database:
+    image: influxdb:2
+    container_name: weatherdb
+    ports:
+      - "8086:8086"
+    volumes: 
+      - influxdb2-data:/var/lib/influxdb2
+      - influxdb2-config:/etc/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_BUCKET}
+    restart: unless-stopped
+    networks:
+      - weather-network
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883" #default mqtt port
+      - "9001:9001" #default websocket port
+    environment:
+      MQTT_USER: ${MQTT_USER}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+    volumes:
+      - mosquitto-config:/mosquitto/config
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    restart: unless-stopped
+    networks:
+      - weather-network
+
+  # backend:
+  #   build: ./backend
+  #   container_name: weather-backend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     INFLUXDB_URL: http://localhost:8086/
+  #     INFLUXDB_TOKEN: YOUR_AUTH_TOKEN
+  #     INFLUXDB_ORG: ORG_NAME
+  #     INFLUXDB_BUCKET: BUCKET_NAME
+
+networks:
+  weather-network:
+
+volumes:
+  influxdb2-data:
+  influxdb2-config:
+  mosquitto-config:
+  mosquitto-data:
+  mosquitto-log:
