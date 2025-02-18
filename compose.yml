@@ -26,9 +26,9 @@ services:
       - "1883:1883" #default mqtt port
       - "9001:9001" #default websocket port
     volumes:
-      - mosquitto-config:/mosquitto/config
-      - mosquitto-data:/mosquitto/data
-      - mosquitto-log:/mosquitto/log
+      - ./mosquitto-config:/mosquitto/config
+      - ./mosquitto-data:/mosquitto/data
+      - ./mosquitto-log:/mosquitto/log
     networks:
       - weather-network
     restart: unless-stopped
