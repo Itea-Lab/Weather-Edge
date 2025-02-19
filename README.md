@@ -36,12 +36,12 @@ acl_file /mosquitto/config/mosquitto.acl #Read ACL file
 Close the configuration file and create `passwd` and `mosquitto.acl` 
 `passwd` stores your authentication setup (username and password), and only allowing that specific user to publish and subscribe to a broker
 
-To add username and password run:
+To add username and password run:  
 
-`mosquitto_passwd -c passwd <username>`
-`-c` means to create new username
-`-d` means to overwrite the current file with new password
-Once finish, the passwd will look like this
+`mosquitto_passwd -c passwd <username>`  
+`-c` means to create new username  
+`-d` means to overwrite the current file with new password  
+Once finish, the passwd will look like this  
 `<username>=<hash password>`
 
 Access Control List, `mosquitto.acl` file allows your to restrict access to topics so that only authorized users/clients can publish or subscribe to them.
@@ -51,13 +51,13 @@ topic readwrite <mqtt topic>
 ```
 
 Restart your MQTT broker after all the configurations
-`docker restart mqtt-broker`
+`docker restart mqtt-broker`  
 
 Then try to communicate with the broker with/without username and password
 see the different
-`mosquitto_sub -h localhost -t <topic>
+`mosquitto_sub -h localhost -t <topic>`  
 This will return 
-`Connection error: Connection Refused: not authorised.`
+`Connection error: Connection Refused: not authorised.`  
 
-Now try
+Now try  
 `mosquitto_sub -h localhost -t <topic> -u <username> -P <password>`
