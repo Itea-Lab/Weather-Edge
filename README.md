@@ -23,41 +23,37 @@ INFLUXDB_BUCKET=<BUCKETNAME>
 `docker compose up --build -d`
 ### Edit your Mosquitto broker
 `cd mosquitto-config `
-There you will see `mosquitto.conf` file which setup the mqtt broker, the current configuration down allow any connection to the broker, you can either
+There you will see `mosquitto.conf` file which setup the mqtt broker, the current configuration only allow specific connection to the broker, you can either
 
-->Set `allow_anonymous` to `true` which is default setup for a broker
+->Set `allow_anonymous` to `true` which is default setup for a broker, this set the broker open for everyone
 
-->Or uncomment the last 2 lines to enable authentication
+->Or keep it false and uncomment the last 2 lines to enable authentication
 ```
 password_file /mosquitto/config/passwd #Read passwd file
-
 acl_file /mosquitto/config/mosquitto.acl #Read ACL file
 ```
-Close the configuration file and create `passwd` and `mosquitto.acl` 
+There is a script that will create `passwd` and `mosquitto.acl` files
 `passwd` stores your authentication setup (username and password), and only allowing that specific user to publish and subscribe to a broker
-
-To add username and password run:  
-
-`mosquitto_passwd -c passwd <username>`  
-`-c` means to create new username  
-`-d` means to overwrite the current file with new password  
-Once finish, the passwd will look like this  
-`<username>=<hash password>`
-
+```
+username = <password_hash>
+```
 Access Control List, `mosquitto.acl` file allows your to restrict access to topics so that only authorized users/clients can publish or subscribe to them.
 ```
 user <username>  
 topic readwrite <mqtt topic>
 ```
+The script will then generate a default testuser and allow this specific user to publish message to MQTT Broker
+```
+testclient
+testpassword
+```
+You can edit the script file to use your own username and password  
 
-Restart your MQTT broker after all the configurations
-`docker restart mqtt-broker`  
-
-Then try to communicate with the broker with/without username and password
-see the different
+Try to communicate with the broker with/without username and password  
+see the different  
 `mosquitto_sub -h localhost -t <topic>`  
-This will return 
-`Connection error: Connection Refused: not authorised.`  
+This will return  
+`Connection error: Connection Refused: not authorised.`    
 
 Now try  
 `mosquitto_sub -h localhost -t <topic> -u <username> -P <password>`
