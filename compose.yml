@@ -2,6 +2,7 @@ name: itea-weather-station
 
 services:
   database:
+    env_file: ./services.env
     image: influxdb:2
     container_name: weatherdb
     ports:
@@ -27,11 +28,11 @@ services:
       - "9001:9001" #default websocket port
     volumes:
       - ./mosquitto-config:/mosquitto/config
-      - ./mosquitto-data:/mosquitto/data
-      - ./mosquitto-log:/mosquitto/log
+      - ./mosquitto-init:/mosquitto-init
+    entrypoint: ["/mosquitto-init/entrypoint.sh"]
     networks:
       - weather-network
-    restart: unless-stopped
+    restart: "no"
     stdin_open: true
     tty: true
 
