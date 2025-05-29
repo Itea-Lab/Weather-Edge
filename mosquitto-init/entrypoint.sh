@@ -25,6 +25,6 @@ while [ ! -f "$PASSWD_FILE" ] || [ ! -f "$ACL_FILE" ]; do
   sleep 1
 done
 
-echo "✅Password and ACL setup complete. Starting Mosquitto..."
+echo "✅ Password and ACL setup complete. Starting Mosquitto..."
 sleep 1
 exec mosquitto -c /mosquitto/config/mosquitto.conf

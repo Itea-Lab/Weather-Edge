@@ -12,15 +12,15 @@
 #define MYPORT_RX 13
 
 // Wi-Fi credentials
-const char *ssid = "WIFISSID";
-const char *password = "WIFIPASSWORD";
+const char *ssid = "SSID";
+const char *password = "WIFI_PASSWORD";
 
 // MQTT broker details
-const char *mqtt_server = "endpoint";
+const char *mqtt_server = "192.168.0.7";
 const int mqtt_port = 1883;
-const char *mqtt_user = "USERNAME";
-const char *mqtt_password = "PASSWORD";
-const char *mqtt_topic = "TOPIC";
+const char *mqtt_user = "testclient";
+const char *mqtt_password = "testpassword";
+const char *mqtt_topic = "test/topic";
 
 // Create an instance of the PubSubClient
 WiFiClient espClient;
@@ -278,5 +278,5 @@ void loop()
 
     publishDataToMQTT(jsonString);
 
-    delay(5000); // Set delay time
+    delay(10000); // Set delay time
 }

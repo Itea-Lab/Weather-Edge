@@ -57,3 +57,6 @@ This will return
 
 Now try  
 `mosquitto_sub -h localhost -t <topic> -u <username> -P <password>`
+
+## Access INFLUXDB
+You can access InfluxDB via the web interface, which is available at `http://<your-ip>:8086`

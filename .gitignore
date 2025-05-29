@@ -1,6 +1,17 @@
+# environment configuration files
 .env
 *.env
+passwd
 .xlsx
 *.xlsx
-passwd
 *.acl
+*.log
+*.tmp
+*.bak
+*.cache
+# mosquitto directories
+mosquitto-data
+mosquitto-log
+# Dependency directories
+node_modules
+project_env

@@ -5,7 +5,7 @@
 
 // Replace with your own WiFi credentials
 const char *ssid = "SSID";
-const char *password = "PASSWORD";
+const char *password = "WIFI_PASSWORD";
 
 const char *mqtt_server = "MQTT_BROKER_IP";
 const int mqtt_port = 1883;

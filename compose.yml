@@ -2,7 +2,8 @@ name: itea-weather-station
 
 services:
   database:
-    env_file: ./services.env
+    env_file:
+      - .env
     image: influxdb:2
     container_name: weatherdb
     ports:
@@ -35,17 +36,6 @@ services:
     restart: "no"
     stdin_open: true
     tty: true
-
-  # backend:
-  #   build: ./backend
-  #   container_name: weather-backend
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     INFLUXDB_URL: http://localhost:8086/
-  #     INFLUXDB_TOKEN: YOUR_AUTH_TOKEN
-  #     INFLUXDB_ORG: ORG_NAME
-  #     INFLUXDB_BUCKET: BUCKET_NAME
 
 networks:
   weather-network:
