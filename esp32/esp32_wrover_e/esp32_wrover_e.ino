@@ -13,14 +13,14 @@
 
 // Wi-Fi credentials
 const char *ssid = "SSID";
-const char *password = "WIFI_PASSWORD";
+const char *password = "PASSWORD";
 
 // MQTT broker details
-const char *mqtt_server = "192.168.0.7";
+const char *mqtt_server = "endpoint_ip"; // Replace with your MQTT broker IP address
 const int mqtt_port = 1883;
-const char *mqtt_user = "testclient";
-const char *mqtt_password = "testpassword";
-const char *mqtt_topic = "test/topic";
+const char *mqtt_user = "username";
+const char *mqtt_password = "password";
+const char *mqtt_topic = "weather/data";
 
 // Create an instance of the PubSubClient
 WiFiClient espClient;

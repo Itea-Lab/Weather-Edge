@@ -12,8 +12,10 @@ fi
 
 echo "Creating Mosquitto ACL file..."
 if [ ! -f "$ACL_FILE" ]; then
-    echo "user testclient" > "$ACL_FILE"
-    echo "topic readwrite #" >> "$ACL_FILE"
+    echo "user espclient" > "$ACL_FILE"
+    echo "topic write #" >> "$ACL_FILE"
+    echo "user raspiclient" >> "$ACL_FILE"
+    echo "topic read #" >> "$ACL_FILE"
 fi
 
 chmod 644 /mosquitto/config/passwd
