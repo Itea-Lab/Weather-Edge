@@ -9,8 +9,8 @@ services:
     ports:
       - "8086:8086"
     volumes: 
-      - influxdb2-data:/var/lib/influxdb2
-      - influxdb2-config:/etc/influxdb2
+      - ./influxdb2-data:/var/lib/influxdb2
+      - ./influxdb2-config:/etc/influxdb2
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
       DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USERNAME}
@@ -36,6 +36,38 @@ services:
     restart: "no"
     stdin_open: true
     tty: true
+
+  itea-edge-hub:
+    env_file:
+      - .env
+    image: pancakeslmao/itea-edge-hub:1.0
+    container_name: itea-edge-hub
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nextjs:/weather-edge-hub/
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_NAME: ${ADMIN_NAME}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_ROLE: ${ADMIN_ROLE}
+      TEST_USERNAME: ${TEST_USERNAME}
+      TEST_NAME: ${TEST_NAME}
+      TEST_PASSWORD_HASH: ${TEST_PASSWORD_HASH}
+      TEST_EMAIL: ${TEST_EMAIL}
+      TEST_ROLE: ${TEST_ROLE}
+      INFLUXDB_ROUTE: ${INFLUXDB_ROUTE}
+      INFLUXDB_TOKEN: ${INFLUXDB_TOKEN}
+      INFLUXDB_ORG: ${INFLUXDB_ORG}
+      INFLUXDB_BUCKET: ${INFLUXDB_BUCKET}
+    depends_on:
+      - database
+    networks:
+      - weather-network
+    restart: unless-stopped
 
 networks:
   weather-network:

@@ -5,15 +5,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def connect_influxdb():
-    token = os.environ.get("INFLUXDB_TOKEN")
-    url = "http://localhost:8086"
-    org = os.environ.get("INFLUXDB_ORG")
-    
+def connect_influxdb(url, token, org):
     if not token:
-        raise ValueError("INFLUXDB_TOKEN environment variable is not set")
+        raise ValueError("InfluxDB token is required")
     if not org:
-        raise ValueError("INFLUXDB_ORG environment variable is not set")
+        raise ValueError("InfluxDB organization is required")
+    if not url:
+        raise ValueError("InfluxDB URL is required")
     try:
         client = InfluxDBClient(url=url, token=token, org=org)
         # Test connection
