@@ -1,23 +1,21 @@
-import os
 import json
 import paho.mqtt.client as mqtt
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class MQTTReceiver:
-    def __init__(self, data_callback=None):
+    def __init__(self, data_callback=None, mqtt_config=None):
         self.data_callback = data_callback
+        self.mqtt_config = mqtt_config or {}
         self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self.setup_client()
 
     def setup_client(self):
         """Setup MQTT client with credentials and callbacks"""
-        username = os.getenv("BROKER_USERNAME")
-        password = os.getenv("BROKER_PASSWORD")
+        username = self.mqtt_config.get('username')
+        password = self.mqtt_config.get('password')
         
         if username and password:
             self.client.username_pw_set(username, password)
+            print(f"MQTT credentials set for user: {username}")
         
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
@@ -25,7 +23,7 @@ class MQTTReceiver:
 
     def on_connect(self, client, userdata, flags, reason_code, properties):
         print(f"MQTT Connected with result code {reason_code}")
-        topic = os.getenv("MQTT_TOPIC", "weather/data")
+        topic = self.mqtt_config.get('topic', 'weather/data')
         client.subscribe(topic, qos=1)
         print(f"Subscribed to topic: {topic}")
 
@@ -50,8 +48,8 @@ class MQTTReceiver:
 
     def start_listening(self):
         """Start listening for MQTT messages"""
-        endpoint = os.getenv("BROKER_ENDPOINT", "localhost")
-        port = int(os.getenv("BROKER_PORT", "1883"))
+        endpoint = self.mqtt_config.get('endpoint', 'localhost')
+        port = self.mqtt_config.get('port', 1883)
         
         try:
             print(f"Connecting to MQTT broker at {endpoint}:{port}")
@@ -59,10 +57,12 @@ class MQTTReceiver:
             self.client.loop_forever()
         except Exception as e:
             print(f"❌ Failed to connect to MQTT broker: {e}")
+            raise
 
 # Legacy function for backward compatibility
 def start_mqtt_listener():
     """Legacy function - use MQTTReceiver class instead"""
+    from config import Config
     print("⚠️ Using legacy MQTT listener - consider updating to use MQTTReceiver class")
-    receiver = MQTTReceiver()
+    receiver = MQTTReceiver(mqtt_config=Config.get_mqtt_config())
     receiver.start_listening()

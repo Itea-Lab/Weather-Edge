@@ -1,18 +1,16 @@
-import os
 import time
 from influxdb_client import Point, WritePrecision
 from .influxClient import get_write_api
-from dotenv import load_dotenv
 
-load_dotenv()
-
-def write_data(client, bucket, measurement, data):
-    org = os.environ.get("INFLUXDB_ORG")
+def write_data(client, bucket, measurement, data, location=None):
     write_api = get_write_api(client)
-    location = os.environ.get("DATA_LOCATION", "unknown")
+    
+    if not location:
+        from config import Config
+        location = Config.DATA_LOCATION
     
     if not write_api:
-        print("Failed to get write API")
+        print("❌ Failed to get write API")
         return False
     
     try:
@@ -29,10 +27,11 @@ def write_data(client, bucket, measurement, data):
             .field("rainfall_24hr", float(data.get("Rainfall (24hr)", 0)))
             .time(time.time_ns(), WritePrecision.NS)
         )
-        write_api.write(bucket=bucket, org=org, record=point)
-        print(f"Data written to bucket: {bucket}")
-        print
+        
+        write_api.write(bucket=bucket, record=point)
+        print(f"✅ Data written to InfluxDB: {measurement}")
         return True
+        
     except Exception as e:
-        print(f"Failed to write data: {e}")
+        print(f"❌ Failed to write data to InfluxDB: {e}")
         return False

@@ -1,3 +1,5 @@
+# IDE files
+.vscode/
 # environment configuration files
 .env
 *.env
@@ -9,9 +11,15 @@ passwd
 *.tmp
 *.bak
 *.cache
+# python cache files
+__pycache__/
 # mosquitto directories
 mosquitto-data
 mosquitto-log
+# influxdb directories
+influxdb2-config
+influxdb2-data
 # Dependency directories
 node_modules
 project_env
+nextjs
