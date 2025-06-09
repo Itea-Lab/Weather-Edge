@@ -1,6 +1,27 @@
 name: itea-weather-station
 
 services:
+  weather-edge-processor:
+    build:
+      context: ./data-processor
+      dockerfile: Dockerfile
+    container_name: weather-edge-processor
+    environment:
+      INFLUXDB_TOKEN: ${INFLUXDB_TOKEN}
+      INFLUXDB_ORG: ${INFLUXDB_ORG}
+      INFLUXDB_BUCKET: ${INFLUXDB_BUCKET}
+      INFLUXDB_URL: ${INFLUXDB_ROUTE}
+      DATA_LOCATION: ${DATA_LOCATION}
+      MEASUREMENT_NAME: ${MEASUREMENT_NAME}
+      BROKER_ENDPOINT: ${BROKER_ENDPOINT}
+      BROKER_USERNAME: ${SUB_USERNAME}
+      BROKER_PASSWORD: ${MQTT_PASSWORD}
+      BROKER_PORT: ${MQTT_PORT}
+      MQTT_TOPIC: ${MQTT_TOPIC}
+    restart: unless-stopped
+    networks:
+      - weather-network
+
   database:
     env_file:
       - .env

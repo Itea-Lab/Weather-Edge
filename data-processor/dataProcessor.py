@@ -84,8 +84,8 @@ class WeatherDataProcessor:
             return False
         return True
     
-    # def get_config_summary(self):
-    #     return Config.print_config_summary()
+    def get_config_summary(self):
+        return Config.print_config_summary()
     
     def start_processing(self):
         """Start the data processing pipeline"""
@@ -93,10 +93,10 @@ class WeatherDataProcessor:
         # -------------------------------------------------
         # FOR DEBUGGING PURPOSES: ONLY USE WHEN YOU WANT TO CHECK CONFIGURATION
         # -------------------------------------------------
-        # print("Configuration Summary:")
-        # config_summary = self.get_config_summary()
-        # for key, value in config_summary.items():
-        #     print(f"   {key}: {value}")
+        print("Configuration Summary:")
+        config_summary = self.get_config_summary()
+        for key, value in config_summary.items():
+            print(f"   {key}: {value}")
         
         # Create MQTT receiver with callback and config
         self.mqtt_receiver = MQTTReceiver(

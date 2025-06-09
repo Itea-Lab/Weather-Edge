@@ -12,14 +12,14 @@ class Config:
     
     # MQTT Configuration
     MQTT_BROKER_ENDPOINT = os.getenv("BROKER_ENDPOINT")
-    MQTT_BROKER_PORT = int(os.getenv("BROKER_PORT"))
-    MQTT_BROKER_USERNAME = os.getenv("BROKER_USERNAME")
-    MQTT_BROKER_PASSWORD = os.getenv("BROKER_PASSWORD")
+    MQTT_BROKER_PORT = int(os.getenv("MQTT_PORT"))
+    MQTT_BROKER_USERNAME = os.getenv("SUB_USERNAME")
+    MQTT_BROKER_PASSWORD = os.getenv("MQTT_PASSWORD")
     MQTT_TOPIC = os.getenv("MQTT_TOPIC")
     
     # Data Configuration
     DATA_LOCATION = os.getenv("DATA_LOCATION", "unknown")
-    MEASUREMENT_NAME = os.getenv("MEASUREMENT_NAME", "weather_sensor")
+    MEASUREMENT_NAME = os.getenv("MEASUREMENT_NAME")
     
     @classmethod
     def validate(cls):
