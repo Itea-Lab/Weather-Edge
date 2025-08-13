@@ -28,7 +28,7 @@ INFLUXDB_BUCKET=weather_data
 INFLUXDB_URL=http://localhost:8086
 # For Docker containers, use service name
 INFLUXDB_ROUTE=http://database:8086
-# Token will be obtained after InfluxDB initialization (see step 4)
+# Token will be obtained after InfluxDB initialization (see step 6)
 INFLUXDB_TOKEN=<your_token_here>
 
 # Data Configuration
