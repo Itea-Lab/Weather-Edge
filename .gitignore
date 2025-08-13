@@ -11,6 +11,9 @@ passwd
 *.tmp
 *.bak
 *.cache
+# Platform connection files
+*.pem
+*_connection_info.json
 # python cache files
 __pycache__/
 # mosquitto directories
