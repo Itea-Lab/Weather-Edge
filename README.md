@@ -162,7 +162,7 @@ Before running the weather edge processor, you must register your device with th
 Start the services for the first time:
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 ### 6. InfluxDB Token Setup (IMPORTANT)
@@ -197,8 +197,8 @@ After the initial startup, you need to obtain the InfluxDB token:
 
 5. **Restart Services:**
    ```bash
-   docker-compose down
-   docker-compose up -d
+   docker compose down
+   docker compose up -d
    ```
 
 ### 7. MQTT Broker Configuration
@@ -308,12 +308,12 @@ The processor runs automatically as part of the Docker Compose stack.
 
 ```bash
 # Check container status
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs weather-edge-processor
-docker-compose logs database
-docker-compose logs mosquitto
+docker compose logs weather-edge-processor
+docker compose logs database
+docker compose logs mosquitto
 
 # Test MQTT connectivity
 docker exec -it mqtt-broker mosquitto_sub -h localhost -u raspiclient -P your_password -t weather/data

@@ -61,7 +61,7 @@ services:
   itea-edge-hub:
     env_file:
       - .env
-    image: pancakeslmao/itea-edge-hub:1.0
+    image: pancakeslmao/itea-edge-hub:1.1
     container_name: itea-edge-hub
     ports:
       - "3000:3000"
