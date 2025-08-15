@@ -89,7 +89,7 @@ class WeatherDataProcessor:
             if self.aws_publisher:
                 # Check connection and attempt reconnect if needed
                 if not self.aws_publisher.is_connection_healthy():
-                    print("🔄 AWS IoT connection lost, attempting reconnect...")
+                    print("AWS IoT connection lost, attempting reconnect...")
                     try:
                         # Add a small delay before reconnecting
                         import time

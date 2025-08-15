@@ -52,9 +52,6 @@ class AWSIoTPublisher:
             self.topic_template = topic_template
             
             # Get DATA_LOCATION from environment
-            import os
-            from dotenv import load_dotenv
-            load_dotenv()
             data_location = os.getenv('DATA_LOCATION', 'unknown')
             
             # If topic template doesn't have {DATA_LOCATION}, append it

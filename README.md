@@ -158,6 +158,10 @@ Before running the weather edge processor, you must register your device with th
 - Dynamic topic routing will append your location to create: `weatherPlatform/telemetry/{DATA_LOCATION}`
 
 ### 5. Initial Docker Compose Setup
+Enable execute permission for script file
+```
+chmod +x mosquitto-init/entrypoint.sh
+```
 
 Start the services for the first time:
 

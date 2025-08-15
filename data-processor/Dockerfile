@@ -1,7 +1,8 @@
+# syntax=docker/dockerfile:1.7
 FROM python:3.10-slim
 LABEL author="PancakesLmao <phucthin29@gmail.com>"
-LABEL description="Dockerfile for edge device configuration"
-LABEL version="1.0"
+LABEL description="Dockerfile for edge processor configuration"
+LABEL version="1.1"
 
 WORKDIR /app
 

@@ -6,18 +6,8 @@ services:
       context: ./data-processor
       dockerfile: Dockerfile
     container_name: weather-edge-processor
-    environment:
-      INFLUXDB_TOKEN: ${INFLUXDB_TOKEN}
-      INFLUXDB_ORG: ${INFLUXDB_ORG}
-      INFLUXDB_BUCKET: ${INFLUXDB_BUCKET}
-      INFLUXDB_URL: ${INFLUXDB_ROUTE}
-      DATA_LOCATION: ${DATA_LOCATION}
-      MEASUREMENT_NAME: ${MEASUREMENT_NAME}
-      BROKER_ENDPOINT: ${BROKER_ENDPOINT}
-      BROKER_USERNAME: ${SUB_USERNAME}
-      BROKER_PASSWORD: ${MQTT_PASSWORD}
-      BROKER_PORT: ${MQTT_PORT}
-      MQTT_TOPIC: ${MQTT_TOPIC}
+    env_file:
+      - .env
     restart: unless-stopped
     networks:
       - weather-network
@@ -58,11 +48,11 @@ services:
     stdin_open: true
     tty: true
 
-  itea-edge-hub:
+  weather-edge-dashboard:
     env_file:
       - .env
-    image: pancakeslmao/itea-edge-hub:1.1
-    container_name: itea-edge-hub
+    image: pancakeslmao/weather-edge-dashboard:latest
+    container_name: weather-edge-dashboard
     ports:
       - "3000:3000"
     volumes:
