@@ -25,7 +25,6 @@ INFLUXDB_USERNAME=<username>
 INFLUXDB_PASSWORD=your_password
 INFLUXDB_ORG=weather_org
 INFLUXDB_BUCKET=weather_data
-INFLUXDB_URL=http://localhost:8086
 # For Docker containers, use service name
 INFLUXDB_ROUTE=http://database:8086
 # Token will be obtained after InfluxDB initialization (see step 6)

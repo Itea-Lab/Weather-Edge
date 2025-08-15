@@ -2,7 +2,7 @@ import os
 
 class Config:
     # InfluxDB Configuration
-    INFLUXDB_URL = os.getenv("INFLUXDB_URL")
+    INFLUXDB_URL = os.getenv("INFLUXDB_ROUTE")
     INFLUXDB_TOKEN = os.getenv("INFLUXDB_TOKEN")
     INFLUXDB_ORG = os.getenv("INFLUXDB_ORG")
     INFLUXDB_BUCKET = os.getenv("INFLUXDB_BUCKET")
